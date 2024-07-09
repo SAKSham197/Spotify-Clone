@@ -1,0 +1,22 @@
+.flex
+{
+    display: flex;
+}
+.border
+{
+    border: 2px solid black;
+    border-radius: 5px;
+}
+.m1
+{
+    margin: 2px;
+}
+.align-item
+{
+    align-items: center;
+}
+.filter
+{
+    filter: invert(1);
+}
+
