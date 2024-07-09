@@ -10,7 +10,7 @@ function secondsToMinutesSeconds(seconds) {
 // Fetch songs
 async function getsongs(folder) {
     currfolder=folder
-    let songsdata = await fetch(`songs/${folder}`)
+    let songsdata = await fetch(`songs/${folder}/`)
     songsdata = await songsdata.text();
     let div = document.createElement("div")
     div.innerHTML = songsdata
@@ -282,13 +282,13 @@ async function main() {
     //Add event listener to volume button for mute and unmute
     document.querySelector(".volduration").getElementsByTagName("img")[0].addEventListener("click", () => {
         let img = document.querySelector(".volduration").getElementsByTagName("img")[0]
-        if (img.src === "img/vol.svg") {
-            img.src = "img/mute.svg"
+        if (img.src === "http://127.0.0.1:3000/img/vol.svg") {
+            img.src = "http://127.0.0.1:3000/img/mute.svg"
             currentsong.volume=0
             document.querySelector(".volume").getElementsByTagName("input")[0].value=0
         }
         else {
-            img.src = "img/vol.svg"
+            img.src = "http://127.0.0.1:3000/img/vol.svg"
             currentsong.volume=0.1
             document.querySelector(".volume").getElementsByTagName("input")[0].value=10
         }
