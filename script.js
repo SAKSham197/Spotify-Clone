@@ -10,7 +10,7 @@ function secondsToMinutesSeconds(seconds) {
 // Fetch songs
 async function getsongs(folder) {
     currfolder=folder
-    let songsdata = await fetch(`http://127.0.0.1:3000/songs/${folder}/`)
+    let songsdata = await fetch(`songs/${folder}/`)
     songsdata = await songsdata.text();
     let div = document.createElement("div")
     div.innerHTML = songsdata
@@ -58,7 +58,6 @@ async function getsongs(folder) {
      // Add an event listener to each song
      Array.from(document.querySelector(".songlists").getElementsByTagName("li")).forEach(e => {
          e.addEventListener("click", () => {
-            console.log(e.querySelector(".songname").innerHTML.replaceAll("  ", " ").trim());
              playMusic(e.querySelector(".songname").innerHTML.replaceAll("  ", " ").trim())
          })
  
@@ -86,7 +85,6 @@ async function getsongs(folder) {
 // Function for playing music
 
 const playMusic = (track) => {
-    console.log(`/songs/${currfolder}/`+track);
     currentsong.src = (`/songs/${currfolder}/`+track)
     currentsong.play()
     pause.src = "img/play.svg"
@@ -97,7 +95,7 @@ const playMusic = (track) => {
 async function displayalbum()
 {
     let cards=document.querySelector(".cards")
-    let albums=await fetch("http://127.0.0.1:3000/songs/")
+    let albums=await fetch("songs/")
     albums= await albums.text()
     let div = document.createElement("div")
     div.innerHTML = albums
@@ -111,7 +109,7 @@ async function displayalbum()
         {
             let folder=e.href.split("/songs/")[1].replace("/","");
             // Get metadata of folder
-            let infodata=await fetch(`http://127.0.0.1:3000/songs/${folder}/info.json`)
+            let infodata=await fetch(`songs/${folder}/info.json`)
             infodata= await infodata.json()
 
             cards.innerHTML=cards.innerHTML+` <div >
@@ -153,9 +151,9 @@ async function main() {
     await getsongs(`Sigma mood`)
     // First song load info 
     currentsong.src = songs[0]
-    // console.log(songs[1]);
+   
     let a = songs[0].split("3000")[1]
-    // console.log(a);
+   
     document.querySelector(".songinfo").innerHTML = a.replaceAll("%20", " ").replace(`/songs/${currfolder}/`,"");
 
     //Display albums or playlists on page
@@ -273,24 +271,24 @@ async function main() {
         currentsong.volume = (e.target.value) / 100;
         if(currentsong.volume==0)
         {
-           img.src="http://127.0.0.1:3000/img/mute.svg"
+           img.src="img/mute.svg"
         }
         else
         {
-            img.src = "http://127.0.0.1:3000/img/vol.svg"
+            img.src = "img/vol.svg"
         }
     })
 
     //Add event listener to volume button for mute and unmute
     document.querySelector(".volduration").getElementsByTagName("img")[0].addEventListener("click", () => {
         let img = document.querySelector(".volduration").getElementsByTagName("img")[0]
-        if (img.src === "http://127.0.0.1:3000/img/vol.svg") {
-            img.src = "http://127.0.0.1:3000/img/mute.svg"
+        if (img.src === "img/vol.svg") {
+            img.src = "img/mute.svg"
             currentsong.volume=0
             document.querySelector(".volume").getElementsByTagName("input")[0].value=0
         }
         else {
-            img.src = "http://127.0.0.1:3000/img/vol.svg"
+            img.src = "img/vol.svg"
             currentsong.volume=0.1
             document.querySelector(".volume").getElementsByTagName("input")[0].value=10
         }
