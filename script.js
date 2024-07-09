@@ -10,9 +10,7 @@ function secondsToMinutesSeconds(seconds) {
 // Fetch songs
 async function getsongs(folder) {
     currfolder=folder
-    let a=`songs/${folder}/`
-    a=a.replace("%20"," ")
-    let songsdata = await fetch(a)
+    let songsdata = await fetch(`songs/${folder}/`)
     songsdata = await songsdata.text();
     let div = document.createElement("div")
     div.innerHTML = songsdata
